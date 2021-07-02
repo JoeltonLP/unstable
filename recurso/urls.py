@@ -1,6 +1,8 @@
-from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
+from .views import teacher_index
 
+
+urlpatterns = [
+    path('professores', teacher_index)
 ]
