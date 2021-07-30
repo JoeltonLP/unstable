@@ -1,0 +1,32 @@
+@BaseURL = http://127.0.0.1:8000
+
+####
+# @name getAll
+GET {{BaseURL}}/api/professores
+
+
+####
+# @name getOne
+GET {{BaseURL}}/api/professores/1
+
+
+####
+# @name create
+POST {{BaseURL}}/api/professores
+Content-Type: application/json
+
+{
+    "name": "Andre Luiz",
+    "email": "andre@hotmail.com",
+    "phone": "6332323244"
+}
+
+
+
+
+
+
+
+
+
+
