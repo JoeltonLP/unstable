@@ -7,20 +7,34 @@ GET {{BaseURL}}/api/professores
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/professores/1
+GET {{BaseURL}}/api/professores/16
 
 
 ####
 # @name create
 POST {{BaseURL}}/api/professores
-Content-Type: application/json
+tent-Type: application/json
+
+{
+    "name": "Cecilia",
+    "email": "cecilia@hotmail.com",
+    "phone": "6332323454"
+}
+
+####
+# @name update
+PUT {{BaseURL}}/api/professores/12
+tent-Type: application/json
 
 {
     "name": "Andre Luiz",
-    "email": "andre@hotmail.com",
-    "phone": "6332323244"
+    "phone": "633232000"
 }
 
+
+####
+# @name delete
+DELETE {{BaseURL}}/api/professores/15
 
 
 
