@@ -1,0 +1,46 @@
+@BaseURL = http://127.0.0.1:8000
+
+####
+# @name getAll
+GET {{BaseURL}}/api/recursos
+
+
+####
+# @name getOne
+GET {{BaseURL}}/api/recursos/16
+
+
+####
+# @name create
+POST {{BaseURL}}/api/recursos
+tent-Type: application/json
+
+{
+    "name": "Cecilia",
+    "email": "cecilia@hotmail.com",
+    "phone": "6332323454"
+}
+
+####
+# @name update
+PUT {{BaseURL}}/api/recursos/12
+tent-Type: application/json
+
+{
+    "name": "Andre Luiz",
+    "phone": "633232000"
+}
+
+
+####
+# @name delete
+DELETE {{BaseURL}}/api/recursos/15
+
+
+
+
+
+
+
+
+

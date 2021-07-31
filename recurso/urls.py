@@ -1,14 +1,14 @@
 from django.urls import path
 
 from .views import (
-    index,
-    index_by_pk, 
+    professores_get_index,
+    professores_index_by_pk 
 )
 
 
 urlpatterns = [
-    path('professores', index),
-    path('professores/<int:pk>', index_by_pk),
-    path('agendamento', index), 
-    path('agendamento<int:pk>', index_by_pk)
+    path('professores', professores_get_index),
+    path('professores/<int:pk>', professores_index_by_pk),
+    # path('agendamento', get_index), 
+    # path('agendamento<int:pk>', index_by_pk)
 ]
