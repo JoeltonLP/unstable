@@ -7,7 +7,7 @@ GET {{BaseURL}}/api/recursos
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/recursos/16
+GET {{BaseURL}}/api/recurso/1
 
 
 ####
@@ -16,25 +16,22 @@ POST {{BaseURL}}/api/recursos
 tent-Type: application/json
 
 {
-    "name": "Cecilia",
-    "email": "cecilia@hotmail.com",
-    "phone": "6332323454"
+    "name": "Data Show"
 }
 
 ####
 # @name update
-PUT {{BaseURL}}/api/recursos/12
+PUT {{BaseURL}}/api/recurso/2
 tent-Type: application/json
 
 {
-    "name": "Andre Luiz",
-    "phone": "633232000"
+    "name": "Data Show 2"
 }
 
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/recursos/15
+DELETE {{BaseURL}}/api/recurso/2
 
 
 

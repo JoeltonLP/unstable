@@ -58,6 +58,8 @@ def get_by_pk(request, pk, model, serealizer):
 
 def create_index(request, model, serealizer):
 
+   
+
     request_data = json.loads(request.body)
 
     try:

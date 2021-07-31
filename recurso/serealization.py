@@ -1,5 +1,5 @@
 from django.http import HttpResponse, response
-from .models import Teacher
+from .models import Resource, Teacher
 
 
 class BaseSerializer:
@@ -29,4 +29,19 @@ class BaseSerializer:
 class TeacherSerializer(BaseSerializer):
 
     _model = Teacher
+
+
+class ResourceSerializer(BaseSerializer):
+
+    _model = Resource
+
+
+    @classmethod
+    def serealizer(cls, inst):
+        
+        response = {
+            'pk': inst.pk,
+            'name': inst.name
+        }
+        return response
 

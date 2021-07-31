@@ -7,7 +7,7 @@ GET {{BaseURL}}/api/professores
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/professores/17
+GET {{BaseURL}}/api/professor/17
 
 
 ####
@@ -23,7 +23,7 @@ tent-Type: application/json
 
 ####
 # @name update
-PUT {{BaseURL}}/api/professores/18
+PUT {{BaseURL}}/api/professor/19
 tent-Type: application/json
 
 {
@@ -33,7 +33,7 @@ tent-Type: application/json
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/professores/18
+DELETE {{BaseURL}}/api/professor/19
 
 
 
