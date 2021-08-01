@@ -16,8 +16,8 @@ POST {{BaseURL}}/api/professores
 tent-Type: application/json
 
 {
-    "name": "Edwisley",
-    "email": "edwisley@gmail.com",
+    "name": "Andre Luiz",
+    "email": "andre@gmail.com",
     "phone": "63323235454"
 }
 

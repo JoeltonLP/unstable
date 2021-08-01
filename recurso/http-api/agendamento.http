@@ -3,22 +3,24 @@
 
 ####
 # @name getAll
-GET {{BaseURL}}/api/agendamento
+GET {{BaseURL}}/api/reservas
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/agendamento/1
+GET {{BaseURL}}/api/reserva/2
 
 
 ####
 # @name create
-POST {{BaseURL}}/api/agendamento
+POST {{BaseURL}}/api/reservas
 Content-Type: application/json
 
 {
-    "teacher": 1,
-    "resource": 1,
-    "lead_date": "29/07/2021",
-    "lead_return": "01/08/2021",
-    "lead_days": ""
+    "teacher_id": 2,
+    "resource_id": 3
 }
+
+
+####
+# @name delete
+DELETE {{BaseURL}}/api/reserva/6

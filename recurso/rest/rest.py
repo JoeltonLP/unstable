@@ -5,12 +5,13 @@ from django.http import HttpResponse
 
 def get_all(request, model, serealizer):
     
+    
     query = model.objects.all()
 
     if query.exists():
-
+        
         inst_serialized = [serealizer.serealizer(items) for items in query]
-
+        
      
         response = HttpResponse(
             status=200,
@@ -19,7 +20,11 @@ def get_all(request, model, serealizer):
         )
     else:
         response = HttpResponse(
-            status=404
+            status=404,
+            content_type='Application/json',
+            content=json.dumps({
+                'Menssage': 'Nenhum item na base de dados'
+            })
         )
 
     return response
@@ -67,6 +72,7 @@ def create_index(request, model, serealizer):
         inst = serealizer.deserealizer(request_data)
         inst.save()
 
+        
         inst_serealized = serealizer.serealizer(inst)
 
         response = HttpResponse(

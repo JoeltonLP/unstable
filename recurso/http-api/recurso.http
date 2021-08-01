@@ -16,22 +16,24 @@ POST {{BaseURL}}/api/recursos
 tent-Type: application/json
 
 {
-    "name": "Data Show"
+    "name": "Data show 14",
+    "patrimony_number": "2334433"
 }
 
 ####
 # @name update
-PUT {{BaseURL}}/api/recurso/2
+PUT {{BaseURL}}/api/recurso/1
 tent-Type: application/json
 
 {
-    "name": "Data Show 2"
+    "loan_resource_id": 1
+
 }
 
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/recurso/2
+DELETE {{BaseURL}}/api/recursos/
 
 
 
