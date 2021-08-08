@@ -1,29 +1,7 @@
 from django.http import HttpResponse, response
 from .models import Resource, Teacher, LoanResource
 
-
-class BaseSerializer:
-
-    _model = None
-
-    @classmethod
-    def serealizer(cls, inst):
-        
-        data = {
-            "pk": inst.pk,
-            "name": inst.name,
-            "email": inst.email,
-            "phone": inst.phone
-        }
-
-        return data
-
-    @classmethod
-    def deserealizer(cls, data):
-
-        inst = cls._model(**data )
-
-        return inst
+from helpers.serializer import BaseSerializer
 
 
 class TeacherSerializer(BaseSerializer):
@@ -37,7 +15,7 @@ class ResourceSerializer(BaseSerializer):
 
 
     @classmethod
-    def serealizer(cls, inst):
+    def encode(cls, inst):
         
         response = {
             'pk': inst.pk,
@@ -50,7 +28,7 @@ class LoanResourceSerealizer(BaseSerializer):
     _model = LoanResource
 
     @classmethod
-    def serealizer(cls, inst):
+    def encode(cls, inst):
         
         response = {
             'pk': inst.pk,
