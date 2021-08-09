@@ -6,10 +6,7 @@ class BaseSerializer:
     def encode(cls, inst):
         
         data = {
-            "pk": inst.pk,
-            "name": inst.name,
-            "email": inst.email,
-            "phone": inst.phone
+            'pk': inst.pk,
         }
 
         return data

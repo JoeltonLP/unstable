@@ -2,10 +2,6 @@ from django.db import models
 from django.db.models.base import ModelState
 
 
-
-
-
-
 class Teacher(models.Model):
     name = models.CharField('Nome', max_length=100)
     email = models.CharField('Email', max_length=100, unique=True)
@@ -16,6 +12,7 @@ class Teacher(models.Model):
     def __str__(self):
         return f'{self.name}'
     
+
 
 class Resource(models.Model):
     name = models.CharField(max_length=200)
@@ -28,6 +25,24 @@ class Resource(models.Model):
 
 
 
+class ResourceDataShow(Resource):
+    pass
+
+
+class ResourceQuadra(Resource):
+    pass
+
+
+class ResourceAuditorio(Resource):
+    pass
+
+
+class ResourceCaixaSom(Resource):
+    pass
+
+
+
+
 class LoanResource(models.Model):
     teacher = models.OneToOneField(Teacher, on_delete=models.PROTECT)
     resource = models.OneToOneField(Resource, on_delete=models.PROTECT)
@@ -35,4 +50,4 @@ class LoanResource(models.Model):
 
 
     def __str__(self):
-        return f'{self.pk}'
+        return f'agendamento de recurso'

@@ -19,7 +19,7 @@ def make_rest(serealizer):
         
             response = HttpResponse(
                 status=200,
-                content_type='Application/josn',
+                content_type='application/json',
                 content=json.dumps(inst_serialized)   
             )
         else:

@@ -8,6 +8,18 @@ class TeacherSerializer(BaseSerializer):
 
     _model = Teacher
 
+    @classmethod
+    def encode(cls, inst):
+        result = super().encode(inst)
+
+        result.update(
+            name=inst.name,
+            email=inst.email,
+            phone=inst.phone  
+        )
+
+        return result
+
 
 class ResourceSerializer(BaseSerializer):
 
@@ -18,7 +30,6 @@ class ResourceSerializer(BaseSerializer):
     def encode(cls, inst):
         
         response = {
-            'pk': inst.pk,
             'name': inst.name
         }
         return response
@@ -29,14 +40,13 @@ class LoanResourceSerealizer(BaseSerializer):
 
     @classmethod
     def encode(cls, inst):
-        
-        response = {
-            'pk': inst.pk,
-            'teacher_id': inst.teacher_id,
-            'name_techer': inst.teacher.name,
-            'resource_id': inst.resource_id,
-            'name_resource': inst.resource.name,
-            
-        }
-        return response
+        result = super().encode(inst)
+
+        result.update(
+            description='Recurso agendado', 
+            teacher=TeacherSerializer.encode(inst.teacher),
+            resource=ResourceSerializer.encode(inst.resource)
+        )
+
+        return result
 
