@@ -28,11 +28,15 @@ class ResourceSerializer(BaseSerializer):
 
     @classmethod
     def encode(cls, inst):
-        
-        response = {
-            'name': inst.name
-        }
-        return response
+
+        result = super().encode(inst)
+
+        result.update(
+            name=inst.name,
+            patrimony_number=inst.patrimony_number,   
+        )
+
+        return result
 
 class LoanResourceSerealizer(BaseSerializer):
 
@@ -43,9 +47,14 @@ class LoanResourceSerealizer(BaseSerializer):
         result = super().encode(inst)
 
         result.update(
-            description='Recurso agendado', 
+            description='Recurso agendado',
+            reserve_date=str(inst.reserve_date),
+            day_shift=inst.get_day_shift_display(),
+            class_room=inst.class_room,
+            time=inst.get_time_display(),
+            loan_note=inst.loan_note,  
             teacher=TeacherSerializer.encode(inst.teacher),
-            resource=ResourceSerializer.encode(inst.resource)
+            resource=ResourceSerializer.encode(inst.resource),  
         )
 
         return result

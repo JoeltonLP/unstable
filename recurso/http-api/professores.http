@@ -2,7 +2,7 @@
 
 ####
 # @name getAll
-GET {{BaseURL}}/api/professores
+GET {{BaseURL}}/api/professor
 
 
 ####
@@ -12,13 +12,13 @@ GET {{BaseURL}}/api/professor/17
 
 ####
 # @name create
-POST {{BaseURL}}/api/professores
+POST {{BaseURL}}/api/professor
 tent-Type: application/json
 
 {
-    "name": "Andre Luiz",
-    "email": "andre@gmail.com",
-    "phone": "63323235454"
+    "name": "Francisco",
+    "email": "Francisco@gmail.com",
+    "phone": "434354"
 }
 
 ####

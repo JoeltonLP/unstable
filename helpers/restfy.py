@@ -34,7 +34,7 @@ def make_rest(serealizer):
         return response
 
 
-    def get_by_pk(request, pk, model, serealizer):
+    def get_by_pk(request, pk):
 
 
         try:
@@ -65,7 +65,7 @@ def make_rest(serealizer):
         return response
 
 
-    def create_index(request, model, serealizer):
+    def create_index(request):
 
     
 
@@ -98,7 +98,7 @@ def make_rest(serealizer):
         return response
 
 
-    def put_by_pk(request, pk, model, serealizer):
+    def put_by_pk(request, pk):
         
         request_data = json.loads(request.body)
 
@@ -133,7 +133,7 @@ def make_rest(serealizer):
         return response
 
 
-    def delete_by_pk(request, pk, model, serealizer):
+    def delete_by_pk(request, pk):
 
         try:
 
