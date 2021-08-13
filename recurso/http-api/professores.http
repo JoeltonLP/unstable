@@ -7,7 +7,7 @@ GET {{BaseURL}}/api/professor
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/professor/17
+GET {{BaseURL}}/api/professor/3
 
 
 ####
@@ -16,24 +16,25 @@ POST {{BaseURL}}/api/professor
 tent-Type: application/json
 
 {
-    "name": "Francisco",
-    "email": "Francisco@gmail.com",
-    "phone": "434354"
+    "name": "gerlane",
+    "email": "gerlane@gmail.com",
+    "phone": "43435"
 }
 
 ####
 # @name update
-PUT {{BaseURL}}/api/professor/19
+PUT {{BaseURL}}/api/professor/5
 tent-Type: application/json
 
 {
-    "name": "Edwisley Ribeiro"
+    "name": "Gerlane"
+    
 }
 
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/professor/19
+DELETE {{BaseURL}}/api/professor/5
 
 
 

@@ -1,10 +1,11 @@
 import json
 
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
-
-def make_rest(serealizer):
+def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True, 
+            allow_update=True, allow_delete=True):
 
     model = serealizer._model
 
@@ -31,7 +32,9 @@ def make_rest(serealizer):
                 })
             )
 
-        return response
+        data = json.loads(response.content)
+        print(data)
+        return render(request, 'professor.html', data)
 
 
     def get_by_pk(request, pk):
@@ -166,9 +169,9 @@ def make_rest(serealizer):
 
     def _index(request):
 
-        if request.method == 'GET':
+        if allow_get and request.method == 'GET':
             response = get_all(request)
-        elif request.method == 'POST':
+        elif allow_post and request.method == 'POST':
             response = create_index(request)
 
         return response
@@ -178,13 +181,13 @@ def make_rest(serealizer):
         
         response = None
 
-        if request.method == 'GET':
+        if allow_by_pk and request.method == 'GET':
             response = get_by_pk(request, pk)
 
-        elif request.method == 'DELETE':
+        elif allow_delete and request.method == 'DELETE':
             response = delete_by_pk(request, pk)
 
-        elif request.method == 'PUT':
+        elif allow_update and request.method == 'PUT':
             response = put_by_pk(request, pk)
 
         return response 
