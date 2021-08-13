@@ -54,7 +54,13 @@ class LoanResource(models.Model):
         (2, 'Segundo Horario')
     ), null=True)
     loan_note = models.CharField(max_length=200, null=True)
+
+
+    class Meta:
+
+        verbose_name_plural = 'Agendamentos'
+        verbose_name = 'Agendamentos'
     
     
     def __str__(self):
-        return f'agendamento de recurso'
+        return f'{self.teacher}'
