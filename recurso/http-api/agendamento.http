@@ -1,4 +1,4 @@
-@BaseURL = http://127.0.0.1:8000
+@BaseURL = http://127.0.0.1:9000
 
 
 ####
@@ -7,7 +7,7 @@ GET {{BaseURL}}/api/agendamento
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/agendamento/2
+GET {{BaseURL}}/api/agendamento/1
 
 
 ####
@@ -17,8 +17,8 @@ Content-Type: application/json
 
 {   
     //"week_day": "3",
-    "teacher_id": 3,
-    "resource_id": 4,
+    "teacher_id": 1,
+    "resource_id": 2,
     "day_shift": 2,
     "time": 2,
     "loan_note": "pegando emprestimo",
@@ -31,9 +31,13 @@ PUT {{BaseURL}}/api/agendamento/1
 tent-Type: application/json
 
 {
-   "loan_note": "bla"
+   "loan_note": "agendando data show"
 }
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/agendamento/2
+DELETE {{BaseURL}}/api/agendamento/1
+
+
+
+

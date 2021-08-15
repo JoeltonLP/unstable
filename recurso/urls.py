@@ -6,7 +6,10 @@ from .views import (
     recurso_get_index,
     recurso_index_by_pk,
     agendamento_get_index,
-    agendamento_index_by_pk  
+    agendamento_index_by_pk,
+    get_log_index,
+    get_log_by_pk
+    
 )
 
 
@@ -16,5 +19,7 @@ urlpatterns = [
     path('recurso', recurso_get_index), 
     path('recurso/<int:pk>', recurso_index_by_pk),
     path('agendamento', agendamento_get_index), 
-    path('agendamento/<int:pk>', agendamento_index_by_pk)
+    path('agendamento/<int:pk>', agendamento_index_by_pk), 
+    path('log', get_log_index), 
+    path('log/<int:pk>', get_log_by_pk)
 ]

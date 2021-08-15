@@ -1,4 +1,4 @@
-@BaseURL = http://127.0.0.1:8000
+@BaseURL = http://127.0.0.1:9000
 
 ####
 # @name getAll
@@ -17,7 +17,7 @@ tent-Type: Application/json
 
 {
     "name": "Data show",
-    "patrimony_number": "3456"
+    "patrimony_number": "453"
 }
 
 ####
@@ -27,14 +27,14 @@ tent-Type: application/json
 
 {
     "name": "Data show",
-    "patrimony_number": "3445"
+    "patrimony_number": "123"
 
 }
 
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/recurso/
+DELETE {{BaseURL}}/api/recurso/18
 
 
 

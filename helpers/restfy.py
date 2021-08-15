@@ -1,13 +1,13 @@
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render
 
 
-def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True, 
+def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True, 
             allow_update=True, allow_delete=True):
 
-    model = serealizer._model
+    model = serializer._model
 
     def get_all(request):
     
@@ -15,7 +15,7 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
 
         if query.exists():
             
-            inst_serialized = [serealizer.encode(items) for items in query]
+            inst_serialized = [serializer.encode(items) for items in query]
             
         
             response = HttpResponse(
@@ -32,9 +32,8 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
                 })
             )
 
-        data = json.loads(response.content)
-        print(data)
-        return render(request, 'professor.html', data)
+        
+        return response
 
 
     def get_by_pk(request, pk):
@@ -43,7 +42,7 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
         try:
 
             inst = model.objects.get(pk=pk)
-            inst_serealized = serealizer.encode(inst)
+            inst_serealized = serializer.encode(inst)
 
 
             response = HttpResponse(
@@ -67,20 +66,18 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
 
         return response
 
-
     def create_index(request):
 
-    
-
         request_data = json.loads(request.body)
-
         try:
             
-            inst = serealizer.decode(request_data)
+            inst = serializer.decode(request_data)
             inst.save()
 
+            inst_logs = serializer.logs(inst)
+            inst_logs.save()
             
-            inst_serealized = serealizer.encode(inst)
+            inst_serealized = serializer.encode(inst)
 
             response = HttpResponse(
                 status=201,
@@ -115,7 +112,7 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
 
             inst.save()  
 
-            inst_serialized = serealizer.encode(inst)
+            inst_serialized = serializer.encode(inst)
 
             response = HttpResponse(
                 status=200,
@@ -139,10 +136,11 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
     def delete_by_pk(request, pk):
 
         try:
-
+           
             inst = model.objects.get(pk=pk)
             inst.delete()
             
+           
 
             response = HttpResponse(
                 status=200,
@@ -159,7 +157,7 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
                 content_type='Application/json',
                 content=json.dumps(
                     {
-                        'Message': f'O item com a pk {pk} nao existe'
+                        'Message': str(e)
                     }
                 )
             )
@@ -173,6 +171,8 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
             response = get_all(request)
         elif allow_post and request.method == 'POST':
             response = create_index(request)
+        else:
+            response = HttpResponse(status=405)
 
         return response
     
@@ -189,8 +189,9 @@ def make_rest(serealizer, allow_get=True, allow_by_pk=True, allow_post=True,
 
         elif allow_update and request.method == 'PUT':
             response = put_by_pk(request, pk)
+        else:
+            response = HttpResponseNotAllowed(permitted_methods=['GET'])
 
         return response 
-    
-    
+     
     return _index, _index_by_pk

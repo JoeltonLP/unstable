@@ -37,8 +37,6 @@ class ResourceCaixaSom(Resource):
     pass
 
 
-
-
 class LoanResource(models.Model):
 
     teacher = models.OneToOneField(Teacher, on_delete=models.PROTECT)
@@ -55,12 +53,36 @@ class LoanResource(models.Model):
     ), null=True)
     loan_note = models.CharField(max_length=200, null=True)
 
-
+    
     class Meta:
 
         verbose_name_plural = 'Agendamentos'
         verbose_name = 'Agendamentos'
-    
+
     
     def __str__(self):
         return f'{self.teacher}'
+
+
+class LoanLogs(models.Model):
+    
+    loan_resource = models.ForeignKey(LoanResource, related_name="logs", 
+        on_delete=models.PROTECT, null=True)
+    resource = models.ForeignKey(Resource, related_name='loanlogs', 
+        on_delete=models.PROTECT, null=True)
+    teacher = models.ForeignKey(Teacher, related_name='teachers', 
+        on_delete=models.PROTECT, null=True)
+    type = models.SmallIntegerField(choices=(
+        (1, 'teacher'),
+        (2, 'resource'),
+        (3, 'loan_resource')
+    ))
+
+    def __str__(self):
+        
+        return f'{self.teacher}'
+
+   
+
+    
+

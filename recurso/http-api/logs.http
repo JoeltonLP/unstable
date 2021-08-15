@@ -1,0 +1,26 @@
+@BaseURL = http://127.0.0.1:9000
+
+####
+# @name getAll
+GET {{BaseURL}}/api/log
+
+
+####
+# @name getOne
+GET {{BaseURL}}/api/log/1
+
+####
+# @name getOne
+PUT {{BaseURL}}/api/log/1
+
+
+
+
+
+
+
+
+
+
+
+

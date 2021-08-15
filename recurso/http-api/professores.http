@@ -1,4 +1,4 @@
-@BaseURL = http://127.0.0.1:8000
+@BaseURL = http://127.0.0.1:9000
 
 ####
 # @name getAll
@@ -16,9 +16,9 @@ POST {{BaseURL}}/api/professor
 tent-Type: application/json
 
 {
-    "name": "gerlane",
-    "email": "gerlane@gmail.com",
-    "phone": "43435"
+    "name": "francisco",
+    "email": "francisco@gmail.com",
+    "phone": "323"
 }
 
 ####
@@ -27,14 +27,13 @@ PUT {{BaseURL}}/api/professor/5
 tent-Type: application/json
 
 {
-    "name": "Gerlane"
-    
+    "name": "Gerlane"  
 }
-
 
 ####
 # @name delete
-DELETE {{BaseURL}}/api/professor/5
+DELETE {{BaseURL}}/api/professor/10
+
 
 
 

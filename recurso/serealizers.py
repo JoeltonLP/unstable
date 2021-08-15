@@ -1,5 +1,6 @@
+import json
 from django.http import HttpResponse, response
-from .models import Resource, Teacher, LoanResource
+from .models import LoanLogs, Resource, Teacher, LoanResource
 
 from helpers.serializer import BaseSerializer
 
@@ -10,6 +11,7 @@ class TeacherSerializer(BaseSerializer):
 
     @classmethod
     def encode(cls, inst):
+
         result = super().encode(inst)
 
         result.update(
@@ -18,7 +20,18 @@ class TeacherSerializer(BaseSerializer):
             phone=inst.phone  
         )
 
+
         return result
+
+    @classmethod
+    def logs(cls, inst):
+        
+        dic = {
+            'teacher_id': inst.pk,
+            'type': 1
+        }
+
+        return LoanLogsSerializer.decode(dic)
 
 
 class ResourceSerializer(BaseSerializer):
@@ -37,6 +50,17 @@ class ResourceSerializer(BaseSerializer):
         )
 
         return result
+
+    @classmethod
+    def logs(cls, inst):
+        
+        dic = {
+            'resource_id': inst.pk,
+              'type': 2
+        }
+
+        return LoanLogsSerializer.decode(dic)
+        
 
 class LoanResourceSerealizer(BaseSerializer):
 
@@ -58,4 +82,57 @@ class LoanResourceSerealizer(BaseSerializer):
         )
 
         return result
+   
+    @classmethod
+    def logs(cls, inst):
+        
+        dic = {
+            'loan_resource_id': inst.pk,
+            'type': 3
+        }
+
+        return LoanLogsSerializer.decode(dic)
+
+
+class LoanLogsSerializer(BaseSerializer):
+
+    _model = LoanLogs
+
+    @classmethod
+    def encode(cls, inst):
+
+        
+        if inst.type == 1:
+
+            result = {
+                'pk_loger': inst.pk
+            }
+
+            result.update(
+                teacher=TeacherSerializer.encode(inst.teacher)
+            )
+            return result
+        elif inst.type == 2:
+
+            result = {
+                'pk_loger': inst.pk
+            }
+
+            result.update(
+                resource=ResourceSerializer.encode(inst.resource)
+            )
+            return result
+        elif inst.type == 3:
+
+            result = {
+                'pk_loger': inst.pk
+            }
+
+            result.update(
+               loan_resource=LoanResourceSerealizer.encode(inst.loan_resource)
+            )
+
+            return result
+
+
 

@@ -4,7 +4,6 @@ class BaseSerializer:
 
     @classmethod
     def encode(cls, inst):
-        
         data = {
             'pk': inst.pk
         }
@@ -14,5 +13,6 @@ class BaseSerializer:
     @classmethod
     def decode(cls, data):
         inst = cls._model(**data )
-
+        
+        
         return inst
