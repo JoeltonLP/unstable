@@ -1,25 +1,28 @@
 from django.urls import path
 
 from .views import (
-    professor_get_index,
-    professor_index_by_pk,
-    recurso_get_index,
-    recurso_index_by_pk,
-    agendamento_get_index,
-    agendamento_index_by_pk,
+    professor_index,
+    professor_by_id,
+    recurso_index,
+    recurso_by_id,
+    recurso_data_show_index,
+    recurso_data_show_by_id,
+    agendamento_index,
+    agendamento_by_id,
     get_log_index,
-    get_log_by_pk
-    
+    get_log_by_id
 )
 
 
 urlpatterns = [
-    path('professor', professor_get_index),
-    path('professor/<int:pk>', professor_index_by_pk),
-    path('recurso', recurso_get_index), 
-    path('recurso/<int:pk>', recurso_index_by_pk),
-    path('agendamento', agendamento_get_index), 
-    path('agendamento/<int:pk>', agendamento_index_by_pk), 
+    path('professor', professor_index),
+    path('professor/<int:id>', professor_by_id),
+    path('recurso', recurso_index), 
+    path('recurso/<int:id>', recurso_by_id),
+    path('recurso-data-show', recurso_data_show_index), 
+    path('recurso-data-show/<int:id>', recurso_data_show_by_id),
+    path('agendamento', agendamento_index), 
+    path('agendamento/<int:id>', agendamento_by_id), 
     path('log', get_log_index), 
-    path('log/<int:pk>', get_log_by_pk)
+    path('log/<int:id>', get_log_by_id)
 ]

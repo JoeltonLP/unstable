@@ -1,6 +1,6 @@
 import json
 from django.http import HttpResponse, response
-from .models import LoanLogs, Resource, Teacher, LoanResource
+from .models import LoanLogs, Resource, ResourceDataShow, Teacher, LoanResource
 
 from helpers.serializer import BaseSerializer
 
@@ -45,8 +45,7 @@ class ResourceSerializer(BaseSerializer):
         result = super().encode(inst)
 
         result.update(
-            name=inst.name,
-            patrimony_number=inst.patrimony_number,   
+            name=inst.get_resource_type_display()   
         )
 
         return result
@@ -61,6 +60,33 @@ class ResourceSerializer(BaseSerializer):
 
         return LoanLogsSerializer.decode(dic)
         
+
+class ResourceDataShowSerializer(BaseSerializer):
+
+    _model = ResourceDataShow
+
+    @classmethod
+    def encode(cls, inst):
+
+        result = super().encode(inst)
+
+        result.update(
+            name=inst.get_resource_type_display(),
+            patrimony_number=inst.patrimony_number,
+            full=inst.full_data_show    
+        )
+
+        return result
+
+    # @classmethod
+    # def logs(cls, inst):
+        
+    #     dic = {
+    #         'resource_id': inst.pk,
+    #           'type': 2
+    #     }
+
+    #     return LoanLogsSerializer.decode(dic)
 
 class LoanResourceSerealizer(BaseSerializer):
 
@@ -78,7 +104,7 @@ class LoanResourceSerealizer(BaseSerializer):
             time=inst.get_time_display(),
             loan_note=inst.loan_note,  
             teacher=TeacherSerializer.encode(inst.teacher),
-            resource=ResourceSerializer.encode(inst.resource),  
+            resource=ResourceDataShowSerializer.encode(inst.resource),  
         )
 
         return result

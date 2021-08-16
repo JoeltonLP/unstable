@@ -1,0 +1,20 @@
+{
+    "pk": 1, 
+    "description": "Recurso agendado",
+    "reserve_date": "2021-08-10", 
+    "day_shift": "Noite", 
+    "class_room": "cc3", 
+    "time": "Segundo Horario", 
+    "loan_note": "bla", 
+
+    "teacher": {"pk": 1, 
+    "name": "Andre Luiz", 
+    "email": "andre@gmail.com", 
+    "phone": "63323235454"}, 
+
+    "resource": {"pk": 1, 
+    "name": "Data show", 
+    "patrimony_number": "3445"
+    
+    }
+}

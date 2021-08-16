@@ -1,20 +1,23 @@
 import json
+from recurso.models import ResourceDataShow
 from django.http import response
 from django.http.response import HttpResponse
 from .serealizers import (
     TeacherSerializer, 
     ResourceSerializer, 
     LoanResourceSerealizer,
-    LoanLogsSerializer
+    LoanLogsSerializer,
+    ResourceDataShowSerializer
 )
 
 from helpers import restfy
 
 
-professor_get_index, professor_index_by_pk = restfy.make_rest(TeacherSerializer)
-recurso_get_index, recurso_index_by_pk = restfy.make_rest(ResourceSerializer)
-agendamento_get_index, agendamento_index_by_pk = restfy.make_rest(LoanResourceSerealizer)
-get_log_index , get_log_by_pk = restfy.make_rest(
+professor_index, professor_by_id = restfy.make_rest(TeacherSerializer)
+recurso_index, recurso_by_id = restfy.make_rest(ResourceDataShowSerializer)
+recurso_data_show_index, recurso_data_show_by_id = restfy.make_rest(ResourceDataShowSerializer)
+agendamento_index, agendamento_by_id = restfy.make_rest(LoanResourceSerealizer)
+get_log_index , get_log_by_id = restfy.make_rest(
     LoanLogsSerializer,
     allow_delete=False,
     allow_post=False,
@@ -67,7 +70,7 @@ def register_log_index(request):
     return response
 
 
-def register_log_by_pk(request, pk):
+def register_log_by_id(request, pk):
    
 
     if request.method == 'GET':

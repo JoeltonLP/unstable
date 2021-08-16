@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.base import ModelState
 from django.db.models.enums import Choices
+from django.db.models.fields import IntegerField, SmallIntegerField
+from django.db.models.fields.related import ManyToManyField
 
 
 class Teacher(models.Model):
@@ -14,15 +16,26 @@ class Teacher(models.Model):
     
 
 class Resource(models.Model):
-    name = models.CharField(max_length=200)
-    patrimony_number = models.CharField(max_length=100, unique=True)
+    resource_type = models.SmallIntegerField(choices=(
+        (1, 'Data Show'),
+        (2, 'Auditório'),
+        (3, 'Caixa de Som'),
+        (4, 'Quadra')
+    ))
+    
+
+   
 
     def __str__(self):
         return f'{self.name}'
 
 
 class ResourceDataShow(Resource):
-    pass
+    
+    full_data_show = models.BooleanField(default=True)
+    patrimony_number = models.IntegerField(unique=True)
+
+
 
 
 class ResourceQuadra(Resource):
@@ -38,9 +51,9 @@ class ResourceCaixaSom(Resource):
 
 
 class LoanResource(models.Model):
-
-    teacher = models.OneToOneField(Teacher, on_delete=models.PROTECT)
-    resource = models.OneToOneField(Resource, on_delete=models.PROTECT)
+    
+    teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE)
+    resource = models.OneToOneField(Resource, on_delete=models.CASCADE)
     reserve_date = models.DateField(auto_now=True)
     day_shift = models.SmallIntegerField(choices=(
         (1, 'Noite'),
@@ -52,7 +65,7 @@ class LoanResource(models.Model):
         (2, 'Segundo Horario')
     ), null=True)
     loan_note = models.CharField(max_length=200, null=True)
-
+    full_data_show =  IntegerField(null=True)
     
     class Meta:
 
@@ -60,14 +73,22 @@ class LoanResource(models.Model):
         verbose_name = 'Agendamentos'
 
     
+ 
+
+    
     def __str__(self):
         return f'{self.teacher}'
+
+
+class Possui(models.Model):
+    teacher = models.ForeignKey(Teacher, related_name='possuis', on_delete=models.PROTECT)
+    loan_resource = models.ForeignKey(LoanResource, related_name='loan_resources', on_delete=models.PROTECT)
 
 
 class LoanLogs(models.Model):
     
     loan_resource = models.ForeignKey(LoanResource, related_name="logs", 
-        on_delete=models.PROTECT, null=True)
+        on_delete=models.SET_NULL, null=True)
     resource = models.ForeignKey(Resource, related_name='loanlogs', 
         on_delete=models.PROTECT, null=True)
     teacher = models.ForeignKey(Teacher, related_name='teachers', 

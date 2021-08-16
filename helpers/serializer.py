@@ -12,6 +12,7 @@ class BaseSerializer:
 
     @classmethod
     def decode(cls, data):
+        
         inst = cls._model(**data )
         
         

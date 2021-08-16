@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render
 
 
-def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True, 
+def make_rest(serializer, allow_get=True, allow_by_id=True, allow_post=True, 
             allow_update=True, allow_delete=True):
 
     model = serializer._model
@@ -36,12 +36,12 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
         return response
 
 
-    def get_by_pk(request, pk):
+    def get_by_id(request, id):
 
 
         try:
 
-            inst = model.objects.get(pk=pk)
+            inst = model.objects.get(id=id)
             inst_serealized = serializer.encode(inst)
 
 
@@ -60,7 +60,7 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
                 status=404,
                 content_type='Application/josn',
                 content=json.dumps({
-                    'Message': f'O item com a pk {pk} nao existe'
+                    'Message': f'O item com a id {id} nao existe'
                 })
             )
 
@@ -68,14 +68,17 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
 
     def create_index(request):
 
+        
+        
         request_data = json.loads(request.body)
+        
         try:
-            
+           
             inst = serializer.decode(request_data)
             inst.save()
 
-            inst_logs = serializer.logs(inst)
-            inst_logs.save()
+            # inst_logs = serializer.logs(inst)
+            # inst_logs.save()
             
             inst_serealized = serializer.encode(inst)
 
@@ -98,13 +101,13 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
         return response
 
 
-    def put_by_pk(request, pk):
+    def put_by_id(request, id):
         
         request_data = json.loads(request.body)
 
         try:
 
-            inst = model.objects.get(pk=pk)
+            inst = model.objects.get(id=id)
 
             for key, value in request_data.items():
 
@@ -133,11 +136,11 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
         return response
 
 
-    def delete_by_pk(request, pk):
+    def delete_by_id(request, id):
 
         try:
            
-            inst = model.objects.get(pk=pk)
+            inst = model.objects.get(id=id)
             inst.delete()
             
            
@@ -146,7 +149,7 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
                 status=200,
                 content_type='Application/josn',
                 content=json.dumps({
-                    'Message': f'item com a pk {pk} foi deletado com sucesso'
+                    'Message': f'item com a id {id} foi deletado com sucesso'
                 })
             )
 
@@ -177,21 +180,21 @@ def make_rest(serializer, allow_get=True, allow_by_pk=True, allow_post=True,
         return response
     
 
-    def _index_by_pk(request, pk):
+    def _index_by_id(request, id):
         
         response = None
 
-        if allow_by_pk and request.method == 'GET':
-            response = get_by_pk(request, pk)
+        if allow_by_id and request.method == 'GET':
+            response = get_by_id(request, id)
 
         elif allow_delete and request.method == 'DELETE':
-            response = delete_by_pk(request, pk)
+            response = delete_by_id(request, id)
 
         elif allow_update and request.method == 'PUT':
-            response = put_by_pk(request, pk)
+            response = put_by_id(request, id)
         else:
             response = HttpResponseNotAllowed(permitted_methods=['GET'])
 
         return response 
      
-    return _index, _index_by_pk
+    return _index, _index_by_id

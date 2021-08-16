@@ -7,7 +7,7 @@ GET {{BaseURL}}/api/professor
 
 ####
 # @name getOne
-GET {{BaseURL}}/api/professor/3
+GET {{BaseURL}}/api/professor/1
 
 
 ####
